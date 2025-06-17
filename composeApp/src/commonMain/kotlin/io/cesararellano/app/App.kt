@@ -3,6 +3,7 @@ package io.cesararellano.app
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.safeContentPadding
@@ -24,20 +25,31 @@ import org.jetbrains.compose.ui.tooling.preview.Preview
 @Preview
 fun App() {
     MaterialTheme {
-        Box(Modifier.statusBarsPadding().background(Color.White)) {
-            MyButton("Click Me!")
+        Column( // Row, FlowRow, FlowColumn, LazyColumn, LazyRow
+            modifier = Modifier
+                .statusBarsPadding()
+                .background(Color.Yellow)
+                .fillMaxSize(),
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.spacedBy(16.dp, Alignment.CenterVertically)
+        ) {
+            MyButton("Click Me!", modifier = Modifier.weight(1f))
+            MyButton("Click Me, too!", modifier = Modifier.weight(2f))
+            MyButton("Click Me, again", modifier = Modifier.weight(1f))
         }
 
     }
 }
 
 @Composable
-fun MyButton(text: String) {
+fun MyButton(text: String, modifier: Modifier = Modifier) {
     Text(
         text = text,
-        modifier = Modifier
+        color = Color.White,
+        modifier = modifier
+            .clickable { println("Clicked") }
             .background(Color.Magenta, shape = RoundedCornerShape(8.dp))
             .padding(horizontal = 16.dp, vertical = 8.dp)
-            .clickable { println("Clicked") }
+
     )
 }
